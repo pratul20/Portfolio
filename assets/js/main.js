@@ -218,3 +218,35 @@ blueHueButton.addEventListener("click", () => {
   let root = document.documentElement;
   root.style.setProperty('--hue-color', 200);
 });
+
+
+// const sendMessage = async (event) => {
+//   event.preventDefault();
+
+//   /*
+//     "to": "youremail@gmail.com",
+//   "from": "email@gmail.com",
+//   "subject": "this needs to work!",
+//   "message": "Hello there,!@"
+
+//   */
+
+//   const res = await fetch(
+//     "https://hupiyrgb08.execute-api.us-east-1.amazonaws.com/dev/contact-us",
+//     {
+//       body: JSON.stringify({
+//         to: "sharma.pratul20@gmail.com",
+//         from: "sharma.pratul20@gmail.com",
+//         subject: event.target.subject.value,
+//         message: event.target.message.value,
+//       }),
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       method: "POST",
+//     }
+//   );
+
+//   const result = await res.json();
+//   console.log(result);
+// };
