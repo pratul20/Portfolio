@@ -4,18 +4,43 @@ const form = document.getElementById("contact-form");
 async function handleSubmit(event) {
   event.preventDefault();
   var status = document.getElementById("alert");
-  var data = new FormData(event.target);
-  fetch(event.target.action, {
+  var form_name = document.getElementById("name").value;
+  var form_email = document.getElementById("email").value;
+  var form_subject = document.getElementById("subject").value;
+  var form_message = document.getElementById("message").value;
+
+  if (!form_name||!form_subject||!form_email||!form_message) {
+    status.innerHTML = "Name/Email/Subject/Message is missing";
+    document.querySelector(".alert_style").style.display = "block";
+
+    // hide alert after 3 seconds
+    setTimeout(function () {
+      document.querySelector(".alert_style").style.display = "none";
+    }, 4000);
+    return;
+  }
+
+  var message = form_name+" ("+form_email+")\n\n"+"Message:\n\n"+form_message;
+
+  var data = {
+    to: "sharma.pratul20@gmail.com",
+    from: "sharma.pratul20@gmail.com",
+    subject: form_subject,
+    message: message
+  }
+
+  // var data = new FormData(event.target);
+  fetch("https://hupiyrgb08.execute-api.us-east-1.amazonaws.com/dev/contact-us", {
     method: form.method,
-    body: data,
+    body: JSON.stringify(data),
     headers: {
-      Accept: "application/json",
+      "Content-Type": "application/json",
     },
   })
     .then((response) => {
       status.innerHTML = "Thank You! Your message has been sent.";
       document.querySelector(".alert_style").style.display = "block";
-
+      console.log(data.values);
       // hide alert after 3 seconds
       setTimeout(function () {
         document.querySelector(".alert_style").style.display = "none";
@@ -218,35 +243,3 @@ blueHueButton.addEventListener("click", () => {
   let root = document.documentElement;
   root.style.setProperty('--hue-color', 200);
 });
-
-
-// const sendMessage = async (event) => {
-//   event.preventDefault();
-
-//   /*
-//     "to": "youremail@gmail.com",
-//   "from": "email@gmail.com",
-//   "subject": "this needs to work!",
-//   "message": "Hello there,!@"
-
-//   */
-
-//   const res = await fetch(
-//     "https://hupiyrgb08.execute-api.us-east-1.amazonaws.com/dev/contact-us",
-//     {
-//       body: JSON.stringify({
-//         to: "sharma.pratul20@gmail.com",
-//         from: "sharma.pratul20@gmail.com",
-//         subject: event.target.subject.value,
-//         message: event.target.message.value,
-//       }),
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       method: "POST",
-//     }
-//   );
-
-//   const result = await res.json();
-//   console.log(result);
-// };
